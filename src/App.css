@@ -12,9 +12,19 @@ h1 {
   background-image: url('./assets/svg/img-bg.svg');
 }
 
-.nanum {
+.poppins {
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
+}
+
+.delivering-something {
+  height: 84px;
+  width: 310px;
+  color: #000000;
+  font-family: Poppins;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: 28px;
 }
 
 .btn {

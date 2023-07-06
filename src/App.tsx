@@ -1,9 +1,10 @@
+require('./config/firebase');
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 import { Card, SignUpForm } from './components';
 import './App.css';
 import { ICard } from './constants/types';
-import { getBoard } from './constants';
+import { getBoard, strings } from './constants';
 import { ReplayIcon } from './assets/svg';
 
 const App = () => {
@@ -24,11 +25,9 @@ const App = () => {
 
   const flipCard = (cardId: number) => {
     if (boardLocked || !tries) return;
-    const flippedCard: ICard = board.find((card) => card.card_id === cardId)!;
+    const flippedCard: ICard = board.find((card) => card?.card_id === cardId)!;
     flippedCard.flipped = true;
     setFlippedCards((oldCards) => [...oldCards, flippedCard]);
-
-    console.log('Flipped cards ===>', { flippedCards });
   };
 
   useEffect(() => {
@@ -73,21 +72,16 @@ const App = () => {
           <button className='btn' onClick={restartGame}>
             <>
               <ReplayIcon />
-              <p className='ml-1'>Replay</p>
+              <p className='ml-1'>{strings.replay}</p>
             </>
           </button>
           <div>
-            <p className='nanum'>Mix and match the tile</p>
+            <p className='nanum'>{strings.mixMatch}</p>
             <p>
               {'Tries remaining:'} {tries}
             </p>
-            <p className='text-xl '>
-              The perfect place to buy & sell premium, pre-loved fashion for
-              littl ones!
-            </p>
-            <p className='delivering-something'>
-              Delivering something sweet, real soon!
-            </p>
+            <p className='text-xl '>{strings.perfectPlace}</p>
+            <p className='delivering-something'>{strings.delivering}</p>
           </div>
         </div>
       </div>

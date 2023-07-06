@@ -9,6 +9,8 @@ export const strings = new LocalizedStrings({
     beInformed: 'Bee informed when we launch.',
     whenWe: 'Be informed \n when we launch',
     name: 'Your name',
+    mixMatch: 'Mix and match the tile',
+    replay: 'Replay',
     email: 'Email address',
     countMeIn: 'Count me in as a seller',
     dropDeets: "Drop your deets and we'll give you a buzz.",

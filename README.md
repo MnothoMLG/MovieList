@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Flip Card React App
+
+by Mnotho Gumede
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

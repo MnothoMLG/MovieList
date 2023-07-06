@@ -1,7 +1,7 @@
 require('./config/firebase');
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
-import { Card, SignUpForm } from './components';
+import { Card, LoadingOverlay, SignUpForm } from './components';
 import './App.css';
 import { ICard } from './constants/types';
 import { getBoard, strings } from './constants';
@@ -56,6 +56,7 @@ const App = () => {
 
   return (
     <div className='wrapper flex w-full bg-[#EFEEEB] flex-col items-start sm:items-center justify-between sm:justify-center h-screen px-[12px] sm:px-[36px] sm:py-[42px]'>
+      <LoadingOverlay />
       <div className='flex w-full flex-col-reverse sm:flex-row   justify-between items-end'>
         <div className='card-grid grid grid-rows-2 grid-cols-5 gap-2 w-full '>
           {board.map((card) => (
@@ -77,9 +78,7 @@ const App = () => {
           </button>
           <div>
             <p className='nanum'>{strings.mixMatch}</p>
-            <p>
-              {'Tries remaining:'} {tries}
-            </p>
+            <p>{strings.tries.replace('{0}', String(tries))}</p>
             <p className='text-xl '>{strings.perfectPlace}</p>
             <p className='delivering-something'>{strings.delivering}</p>
           </div>

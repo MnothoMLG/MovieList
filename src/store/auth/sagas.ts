@@ -1,36 +1,41 @@
 import { AxiosResponse } from 'axios';
 import { takeLatest, put, call } from 'redux-saga/effects';
-import { authClient } from '../../api/api';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import {
-  getAccessTokenRequest,
-  getAccessTokenError,
-  getAccessTokenSuccess,
+  signUserUpError,
+  signUserUpRequest,
+  signUserUpSuccess,
 } from './actions';
-import { TokenFetchPayload } from './types';
-import { storeTokensInStorage } from '@util/auth';
+import { errorCodes } from '../../constants';
 
-export function* getAccessToken({
+const auth = getAuth();
+export function* signUp({
   payload,
 }: {
-  payload: TokenFetchPayload;
+  payload: { name: string; email: string };
   type: string;
 }) {
   try {
-    const response: AxiosResponse<any> = yield call(() =>
-      authClient.post('/customers/v1/token', payload)
-    );
-    if (response.data) {
-      const { access_token, refresh_token, id_token } = response.data;
-      yield call(() =>
-        storeTokensInStorage({ access_token, refresh_token, id_token })
-      );
-      yield put(getAccessTokenSuccess());
+    const { name, email } = payload;
+
+    const userCredential: { user: any } = yield createUserWithEmailAndPassword(
+      auth,
+      email,
+      name
+    ); //use name as password :-|
+    console.log('response from user creation', { userCredential });
+
+    if (userCredential.user) {
+      yield put(signUserUpSuccess({ onBoarded: true }));
     }
-  } catch (err) {
-    yield put(getAccessTokenError({ err }));
+  } catch (error: any) {
+    yield put(signUserUpError({ error }));
+    if (error?.code === errorCodes.EMAIL_IN_USE) {
+      //show Flash
+    }
   }
 }
 
 export function* watchAuthSagas() {
-  yield takeLatest(getAccessTokenRequest.type, getAccessToken);
+  yield takeLatest(signUserUpRequest.type, signUp);
 }

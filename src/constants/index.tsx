@@ -16,8 +16,6 @@ import {
   SkirtSVG,
   TshirtSVG,
 } from '../assets/svg';
-export * from './types';
-export * from './strings';
 
 export const gamecards = [
   {
@@ -59,7 +57,6 @@ export const getBoard = () =>
       card_id: index,
     }))
   );
-
 export const completionCards = [
   LetterCard1,
   LetterCard2,
@@ -72,3 +69,6 @@ export const completionCards = [
   LetterCard9,
   LetterCard10,
 ];
+export * from './types';
+export * from './strings';
+export { default as errorCodes } from './errors';

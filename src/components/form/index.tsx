@@ -2,30 +2,16 @@ import React, { FormEvent, useState } from 'react';
 import { Input } from '../input';
 import { Checkbox } from '../checkbox';
 import { strings } from '../../constants';
-import { Formik, FormikComputedProps, FormikFormProps } from 'formik';
+import { Formik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { signUserUpRequest } from '../../store/auth/actions';
 
 const SignUpForm = () => {
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
+  const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
-
-  const handleNameChange = (e: FormEvent<HTMLInputElement>) => {
-    return null;
-  };
-
-  const handleSurnameChange = (e: FormEvent<HTMLInputElement>) => {
-    return null;
-  };
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
-  };
-
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    console.log('Name:', name);
-    console.log('Surname:', surname);
-    console.log('Checkbox:', isChecked);
   };
 
   return (
@@ -38,6 +24,7 @@ const SignUpForm = () => {
         } else if (
           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
         ) {
+          //FixMe: use yup and validation scheme
           errors.email = 'Invalid email address';
         }
         return errors;
@@ -72,8 +59,8 @@ const SignUpForm = () => {
                     id='name'
                     type='text'
                     placeholder={strings.name}
-                    value={name}
-                    onChange={handleNameChange}
+                    value={values.name}
+                    onChange={handleChange('name')}
                   />
                 </div>
                 <div>
@@ -81,8 +68,8 @@ const SignUpForm = () => {
                     id='email'
                     type='text'
                     placeholder={strings.email}
-                    value={surname}
-                    onChange={handleSurnameChange}
+                    value={values.email}
+                    onChange={handleChange('email')}
                   />
                 </div>
               </div>
@@ -104,10 +91,10 @@ const SignUpForm = () => {
                 type='submit'
                 disabled={!isChecked}
                 onClick={() => {
-                  return null;
+                  dispatch(signUserUpRequest({ ...values }));
                 }}
               >
-                Sign me up
+                {strings.signUp}
               </button>
             </div>
           </form>

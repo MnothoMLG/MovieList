@@ -1,5 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import { Input } from '../input';
+import { Checkbox } from '../checkbox';
+import { strings } from '../../constants';
 
 const SignUpForm = () => {
   const [name, setName] = useState('');
@@ -7,18 +9,18 @@ const SignUpForm = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleNameChange = (e: FormEvent<HTMLInputElement>) => {
-
+    return null;
   };
 
-  const handleSurnameChange = (e: FormEvent<HTMLInputElement> ) => {
-
+  const handleSurnameChange = (e: FormEvent<HTMLInputElement>) => {
+    return null;
   };
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     console.log('Name:', name);
     console.log('Surname:', surname);
@@ -26,67 +28,57 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="flex w-full justify-center  items-center h-screen">
-      <form className="w-full" onSubmit={handleSubmit}>
-        <div className='flex w-full items-end justify-between bg-[#fff] rounded-lg py-6 px-8 shadow-lg flex-row'>
+    <div className='flex w-full justify-center  items-center h-screen'>
+      <form className='w-full' onSubmit={handleSubmit}>
+        <div className='flex w-full items-start sm:items-end justify-between bg-[#fff] rounded-lg py-6 px-8 shadow-lg flex-col sm:flex-row'>
           <div>
-          <p className='text-lg font-extrabold'>
-          {"Be informed \n when we launch"}
-          </p>
-          <p className='text-sm '>
-            {"Drop your deets and we'll give you a buzz."}
-          </p>
+            <p className='text-lg font-extrabold'>{strings.beInformed}</p>
+            <p className='text-sm '>{strings.dropDeets}</p>
           </div>
-        <div className='mx-2' >
-          <div className="mb-4">
-            <Input
-              id="name"
-              type="text"
-              placeholder="Your name"
-              value={name}
-              onChange={handleNameChange}
-            />
+          <div className='mt-4 sm:mx-2 w-full sm:w-[200px]'>
+            <div className='mb-4'>
+              <Input
+                id='name'
+                type='text'
+                placeholder={strings.name}
+                value={name}
+                onChange={handleNameChange}
+              />
+            </div>
+            <div>
+              <Input
+                id='email'
+                type='text'
+                placeholder={strings.email}
+                value={surname}
+                onChange={handleSurnameChange}
+              />
+            </div>
           </div>
-          <div>
-            <Input
-              id="email"
-              type="text"
-              placeholder="Email address"
-              value={surname}
-              onChange={handleSurnameChange}
-            />
-          </div>
-        </div>
-        <div>
-          <label className="flex items-center">
-            <input
-              className="form-checkbox h-4 w-4 text-indigo-600"
-              type="checkbox"
+          <div className='my-4'>
+            <Checkbox
               checked={isChecked}
               onChange={handleCheckboxChange}
+              label={strings.countMeIn}
             />
-            <span className="ml-2 text-gray-700 text-sm">I agree to the terms and conditions</span>
-          </label>
-          <label className="flex items-center">
-            <input
-              className="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:gray-500 dark:focus:gray-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-
-              type="checkbox"
+            <div className='mt-2' />
+            <Checkbox
               checked={isChecked}
               onChange={handleCheckboxChange}
+              label={strings.forNews}
             />
-            <span className="ml-2  text-gray-700 text-sm">I agree to the terms and conditions</span>
-          </label>
-        </div>
-        <button
-            className="bg-[#51B1B3] h-[42px] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline"
-            type="submit"
+          </div>
+          <button
+            className='bg-[#51B1B3] h-[42px] self-end hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline'
+            type='submit'
             disabled={!isChecked}
+            onClick={() => {
+              return null;
+            }}
           >
             Sign me up
           </button>
         </div>
-
       </form>
     </div>
   );

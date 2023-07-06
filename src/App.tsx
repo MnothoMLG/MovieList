@@ -1,64 +1,41 @@
-import React, { useState,FC, useEffect } from 'react';
-import _ from "lodash";
-import { BasketballSVG, BeeSVG, MusicSVG, ShoesSVG } from './assets/svg';
-import {Card, SignUpForm} from "./components"
+import React, { useState, useEffect } from 'react';
+import _ from 'lodash';
+import { Card, SignUpForm } from './components';
 import './App.css';
 import { ICard } from './constants/types';
-
-
-const cards = [{
-  symbol: "Basket",
-  backImg: BasketballSVG,
-  flipped: false,
-  matched: false,
-  
-},{
-
-  symbol: "Bee",
-  backImg: BeeSVG,
-  flipped: false,
-  matched: false,
-  
-},{
-  symbol: "Music",
-  backImg: MusicSVG,
-  flipped: false,
-  matched: false,
-  
-},{
-  symbol: "Shoes",
-  backImg: ShoesSVG,
-  flipped: false,
-  matched: false,
-  
-}]
+import { getBoard } from './constants';
+import { ReplayIcon } from './assets/svg';
 
 const App = () => {
   const [flippedCards, setFlippedCards] = useState<ICard[]>([]);
-  const [disabled, setDisabled] = useState(false);
-  const [board, setBoard] = useState(_.shuffle([...cards, ...cards]).map((card, index) => ({...card, id: index})))
+  const [boardLocked, setBoardLocked] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+  const [userWon, setWon] = useState(false);
+  const [tries, setTries] = useState(8);
+  const [board, setBoard] = useState(getBoard());
 
-  const flipCard = (cardId: number) => {
-    if (disabled) return;
-    const flippedCard: ICard = board.find((card) => card.id === cardId)!;
-
-    console.log({flippedCard})
-    flippedCard.flipped = true;
-    setFlippedCards((oldCards) => ([...oldCards, flippedCard]));
-
-    console.log("Flipped cards ===>", {flippedCards})
-  
+  const restartGame = () => {
+    setBoard(getBoard());
+    setWon(false);
+    setGameOver(false);
+    setFlippedCards([]);
+    setTries(8);
   };
 
-  useEffect(()=>{
+  const flipCard = (cardId: number) => {
+    if (boardLocked || !tries) return;
+    const flippedCard: ICard = board.find((card) => card.card_id === cardId)!;
+    flippedCard.flipped = true;
+    setFlippedCards((oldCards) => [...oldCards, flippedCard]);
 
-    console.log("the cards changed" , {flippedCards})
+    console.log('Flipped cards ===>', { flippedCards });
+  };
+
+  useEffect(() => {
     if (flippedCards.length === 2) {
-      setDisabled(true);
+      setBoardLocked(true);
       setTimeout(() => {
         const [card1, card2] = flippedCards;
-
-        console.log({card1 , card2})
         if (card1.symbol === card2.symbol) {
           card1.matched = true;
           card2.matched = true;
@@ -67,41 +44,56 @@ const App = () => {
           card2.flipped = false;
         }
         setFlippedCards([]);
-        setDisabled(false);
+        setTries((old) => old - 1);
+        setBoardLocked(false);
       }, 1000);
     }
-  }, [flippedCards])
+  }, [flippedCards]);
 
   useEffect(() => {
-    const isFinished = board.every((card) => card.matched);
-
-    if (isFinished) {
-      // alert('Congratulations! You won the game!');
-    }
-  }, [board]);
+    setGameOver(!tries);
+    setWon(board.every((card) => card.matched));
+  }, [board, tries]);
 
   return (
-    <div className="flex w-full bg-[#EFEEEB] flex-col items-center justify-center h-screen px-[36px] py-[42px]">
-      <div className='flex w-full flex-row justify-between items-end'>
-        <div className="card-grid grid grid-cols-2 sm:grid-cols-4 gap-4 w-4/5 sm:w-full max-w-screen-lg">
+    <div className='wrapper flex w-full bg-[#EFEEEB] flex-col items-start sm:items-center justify-between sm:justify-center h-screen px-[12px] sm:px-[36px] sm:py-[42px]'>
+      <div className='flex w-full flex-col-reverse sm:flex-row   justify-between items-end'>
+        <div className='card-grid grid grid-rows-2 grid-cols-5 gap-2 w-full '>
           {board.map((card) => (
             <Card
-              key={card.id}
+              key={card.card_id}
               card={card}
+              gameWon={userWon}
               flipCard={flipCard}
-              disabled={disabled}
+              disabled={boardLocked}
             />
-            ))} 
+          ))}
         </div>
-        <div className="ml-2">
-          <p className='text-xl '>The perfect place to buy & sell premium, pre-loved fashion for littl ones!</p>
-          <p className='text-lg '>Delivering something sweet, real soon!</p>
+        <div className='sm:ml-2 h-full sm:w-[380px] flex flex-col mt-4 sm:mt-0 itme justify-between sm:ml-[48px] display-none sm:display-flex'>
+          <button className='btn' onClick={restartGame}>
+            <>
+              <ReplayIcon />
+              <p className='ml-1'>Replay</p>
+            </>
+          </button>
+          <div>
+            <p className='nanum'>Mix and match the tile</p>
+            <p>
+              {'Tries remaining:'} {tries}
+            </p>
+            <p className='text-xl '>
+              The perfect place to buy & sell premium, pre-loved fashion for
+              littl ones!
+            </p>
+            <p className='delivering-something'>
+              Delivering something sweet, real soon!
+            </p>
+          </div>
         </div>
       </div>
-        <SignUpForm />
+      <SignUpForm />
     </div>
   );
 };
 
 export default App;
-

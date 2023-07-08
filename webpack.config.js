@@ -1,14 +1,17 @@
-module.exports = {
-    module: {
-      rules: [
+const TsconfigPathsPlugin = require(‘tsconfig-paths-webpack-plugin’);
+
+export const module = {
+  rules: [
+    {
+      test: /\.(png|jpe?g|gif)$/i,
+      use: [
         {
-          test: /\.(png|jpe?g|gif)$/i,
-          use: [
-            {
-              loader: "file-loader",
-            },
-          ],
+          loader: "file-loader",
         },
       ],
     },
-  };
+  ],
+  resolve: {
+    plugins: [new TsconfigPathsPlugin()],
+  }
+};

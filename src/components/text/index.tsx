@@ -1,8 +1,20 @@
 import React, { FC } from 'react';
+import './text.css';
 
-export const Text: FC<React.HTMLProps<HTMLParagraphElement>> = (props) => {
+export const Text: FC<
+  React.HTMLProps<HTMLParagraphElement> & {
+    bold?: boolean;
+    mid?: boolean;
+    nanum?: boolean;
+    size?: number;
+  }
+> = (props) => {
   return (
-    <div className=''>
+    <div
+      className={`${
+        props.bold ? 'text-bold' : props.mid ? 'text-mid' : 'text-regular'
+      }   ${props.nanum ? 'nanum' : ''} text-[${props.size || 13}px]`}
+    >
       <p {...props} />
     </div>
   );

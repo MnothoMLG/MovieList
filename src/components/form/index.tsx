@@ -3,16 +3,22 @@ import { Input } from '../input';
 import { Checkbox } from '../checkbox';
 import { strings } from '../../constants';
 import { Formik } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUserUpRequest } from '../../store/auth/actions';
+import { getAuthState } from '../../store/auth/selectors';
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
+  const { onBoarded } = useSelector(getAuthState);
+
+  console.log({ onBoarded });
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
+
+  if (onBoarded) return null;
 
   return (
     <Formik

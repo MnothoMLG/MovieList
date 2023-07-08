@@ -1,41 +1,40 @@
 .app {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-   
-  .card {
-    cursor: pointer;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
-    position: relative;
-    background-image: url( '../../assets/svg/card.svg');
-    transform-style: preserve-3d;
-    transition: transform 0.5s;
-  }
-  
-  .card-front,
-  .card-back {
-    justify-content: center;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    backface-visibility: hidden;
-  }
-  
-  .card-back {
-    background-color: #fff;
-  }
-  
-  
-  .no-flip { /*  the transition - after the flip */
-  
-  }
-  
-  .flip { /*  the transition - after the flip */
-    transform: rotateY(180deg);
-  }
-  
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.card {
+  cursor: pointer;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  background-image: url('../../assets/svg/card.svg');
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.card-front,
+.card-back {
+  justify-content: center;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  background-color: #fff;
+}
+
+.no-flip {
+  /*  the transition - after the flip */
+}
+
+.flip {
+  /*  the transition - after the flip */
+  transform: rotateY(180deg);
+}

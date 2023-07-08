@@ -1,0 +1,16 @@
+.text-bold {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+}
+
+.text-mid {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+.text-regular {
+  font-family: 'Poppins', sans-serif;
+}
+
+.nanum {
+  font-family: 'Nanum Pen Script', cursive;
+}

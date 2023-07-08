@@ -51,12 +51,10 @@ export const gamecards = [
 ];
 
 export const getBoard = () =>
-  _.shuffle(
-    [...gamecards, ...gamecards].map((card, index) => ({
-      ...card,
-      card_id: index,
-    }))
-  );
+  _.shuffle([...gamecards, ...gamecards]).map((card, index) => ({
+    ...card,
+    card_id: index,
+  }));
 export const completionCards = [
   LetterCard1,
   LetterCard2,

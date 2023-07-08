@@ -2,14 +2,15 @@ import LocalizedStrings from 'react-localization';
 
 export const strings = new LocalizedStrings({
   en: {
-    perfectPlace:
-      'The perfect place to buy & sell premium, pre-loved fashion  for little ones!',
-    delivering:
-      'Delivering something sweet, real soon! Join the hive to stay in the loop.',
+    perfectPlace1: 'The perfect place to',
+    perfectPlace2: '  premium, pre-loved fashion  for little ones!',
+    buySell: 'buy & sell',
+    delivering1: 'Delivering something sweet, real soon!',
+    delivering2: ' Join the hive to stay in the loop.',
     beInformed: 'Bee informed when we launch.',
     whenWe: 'Be informed \n when we launch',
     name: 'Your name',
-    mixMatch: 'Mix and match the tile',
+    mixMatch: 'Mix & match the tiles\nto reveal a surprise!',
     replay: 'Replay',
     email: 'Email address',
     tries: 'Tries remaining: {0}',

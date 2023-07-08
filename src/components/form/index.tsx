@@ -1,40 +1,34 @@
-import React, { FormEvent, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input } from '../input';
 import { Checkbox } from '../checkbox';
 import { strings } from '../../constants';
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { signUserUpRequest } from '../../store/auth/actions';
+import {
+  SIGN_UP_LOADING_KEY,
+  signUserUpRequest,
+} from '../../store/auth/actions';
 import { getAuthState } from '../../store/auth/selectors';
+import { useLoading } from '../../hooks';
+import { userFormValidationScheme } from '../../config/validation';
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
   const { onBoarded } = useSelector(getAuthState);
-
-  console.log({ onBoarded });
+  const loading = useLoading(SIGN_UP_LOADING_KEY);
+  console.log({ onBoarded, loading });
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
 
-  if (onBoarded) return null;
+  // if (onBoarded) return null;
 
   return (
     <Formik
       initialValues={{ email: '', name: '' }}
-      validate={(values) => {
-        const errors = { email: '', name: '' };
-        if (!values.email) {
-          errors.email = 'Required';
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          //FixMe: use yup and validation scheme
-          errors.email = 'Invalid email address';
-        }
-        return errors;
-      }}
+      validationSchema={userFormValidationScheme}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
@@ -44,12 +38,9 @@ const SignUpForm = () => {
     >
       {({
         values,
-        errors,
-        touched,
         handleChange,
-        handleBlur,
         handleSubmit,
-        isSubmitting,
+        errors,
         /* and other goodies */
       }) => (
         <div className='flex w-full justify-center  items-center h-screen'>
@@ -66,6 +57,7 @@ const SignUpForm = () => {
                     type='text'
                     placeholder={strings.name}
                     value={values.name}
+                    error={errors.name}
                     onChange={handleChange('name')}
                   />
                 </div>
@@ -74,6 +66,7 @@ const SignUpForm = () => {
                     id='email'
                     type='text'
                     placeholder={strings.email}
+                    error={errors.email}
                     value={values.email}
                     onChange={handleChange('email')}
                   />

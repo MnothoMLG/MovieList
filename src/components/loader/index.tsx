@@ -4,20 +4,12 @@ import { ColorRing } from 'react-loader-spinner';
 import { useLoading } from '../../hooks';
 import { SIGN_UP_LOADING_KEY } from '../../store/auth/actions';
 
-export const LoadingOverlay: FC<React.HTMLProps<HTMLParagraphElement>> = (
-  props
-) => {
+export const LoadingOverlay: FC<React.HTMLProps<HTMLParagraphElement>> = () => {
   const loading = useLoading(SIGN_UP_LOADING_KEY);
 
   console.log('modal', { loading });
   return (
-    <Modal
-      isOpen={loading}
-      // onAfterOpen={afterOpenModal}
-      // onRequestClose={closeModal}
-      style={customStyles}
-      contentLabel='Example Modal'
-    >
+    <Modal isOpen={loading} style={customStyles} contentLabel='Example Modal'>
       <ColorRing
         visible={true}
         height='80'

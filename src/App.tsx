@@ -3,16 +3,17 @@ import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 import { Card, LoadingOverlay, SignUpForm, Text } from './components';
 import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { ICard } from './constants/types';
 import { getBoard, strings } from './constants';
 import { ReplayIcon } from './assets/svg';
-import { NULL } from 'sass';
+import { notify } from './util';
 
 const App = () => {
   const [flippedCards, setFlippedCards] = useState<ICard[]>([]);
   const [boardLocked, setBoardLocked] = useState(false);
-  const [gameOver, setGameOver] = useState(true);
-  const [userWon, setWon] = useState(true);
+  const [gameOver, setGameOver] = useState(false);
+  const [userWon, setWon] = useState(false);
   const [tries, setTries] = useState(8);
   const [board, setBoard] = useState(getBoard());
 

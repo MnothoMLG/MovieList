@@ -25,20 +25,15 @@ export function* signUp({
       email,
       name
     ); //use name as password :-|
-
-    console.log('response from user creation', { userCredential });
-
     if (userCredential.user) {
       yield put(signUserUpSuccess({ onBoarded: true }));
-      // notify({ type: 'success', message: 'Signed up successfully! 😊' });
+      notify({ type: 'success', message: 'Signed up successfully! 😊' });
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.log('error here ==>', { error });
     yield put(signUserUpError({ error }));
     if (error?.code === errorCodes.EMAIL_IN_USE) {
-      console.log('show toast');
-      // notify({ type: 'error', message: 'That email is already signed up' });
+      notify({ type: 'error', message: 'That email is already signed up' });
     }
   }
 }

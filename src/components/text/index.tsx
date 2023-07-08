@@ -13,7 +13,7 @@ export const Text: FC<
     <div
       className={`${
         props.bold ? 'text-bold' : props.mid ? 'text-mid' : 'text-regular'
-      }   ${props.nanum ? 'nanum' : ''} text-[${props.size || 13}px]`}
+      }   ${props.nanum ? 'nanum-font' : ''} text-[${props.size || 13}px]`}
     >
       <p {...props} />
     </div>

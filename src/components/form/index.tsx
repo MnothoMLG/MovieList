@@ -4,7 +4,10 @@ import { Checkbox } from '../checkbox';
 import { strings } from '../../constants';
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { SIGN_UP_LOADING_KEY, signUserUpRequest } from '@store/auth/actions';
+import {
+  SIGN_UP_LOADING_KEY,
+  signUserUpRequest,
+} from '../../store/auth/actions';
 import { getAuthState } from '../../store/auth/selectors';
 import { useLoading } from '../../hooks';
 import { userFormValidationScheme } from '../../config/validation';
@@ -13,6 +16,7 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
   const { onBoarded } = useSelector(getAuthState);
+  const [signMeUp, setSignMeUp] = useState(false);
   const loading = useLoading(SIGN_UP_LOADING_KEY);
   console.log({ onBoarded, loading });
 
@@ -20,7 +24,7 @@ const SignUpForm = () => {
     setIsChecked(!isChecked);
   };
 
-  // if (onBoarded) return null;
+  if (onBoarded) return null;
 
   return (
     <Formik

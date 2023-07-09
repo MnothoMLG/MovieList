@@ -51,11 +51,11 @@ const App = () => {
     }
   }, [flippedCards]);
 
-  // useEffect(() => {
-  //   setGameOver(!tries);
-  //   setWon(board.every((card) => card.matched));
-  //   console.log('setting won');
-  // }, [board, tries]);
+  useEffect(() => {
+    setGameOver(!tries);
+    setWon(board.every((card) => card.matched));
+    console.log('setting won');
+  }, [board, tries]);
 
   return (
     <div className='wrapper flex w-full bg-[#EFEEEB] flex-col items-start sm:items-center justify-between sm:justify-center h-screen px-[12px] sm:px-[36px] sm:py-[42px]'>

@@ -1,3 +1,5 @@
+import { apiPaths } from '../config/api';
+import URLS from '../config/env.json';
 import { ToastOptions, toast } from 'react-toastify';
 
 const toastProps: ToastOptions = {
@@ -20,3 +22,6 @@ export const notify = ({
   type === 'success'
     ? toast.success(message, { ...toastProps })
     : toast.error(message, { ...toastProps });
+
+export const getImgURL = (name: string) =>
+  `${URLS.BASE_URL}${apiPaths.IMAGES}${name}`;

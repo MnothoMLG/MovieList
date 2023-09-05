@@ -22,3 +22,9 @@ export const strings = new LocalizedStrings({
     signUp: 'Sign me up',
   },
 });
+
+export const images = {
+  NAV: 'nav_bar.png',
+  BACK: 'Back.png',
+  SEARCH: 'search.png',
+};

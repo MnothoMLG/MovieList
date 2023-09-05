@@ -13,5 +13,11 @@ export const module = {
   ],
   resolve: {
     plugins: [new TsconfigPathsPlugin()],
+    alias: {
+      util: path.resolve(__dirname, 'src/util/'),
+      config: path.resolve(__dirname, 'src/config/'),
+      store: path.resolve(__dirname, 'src/store/'),
+      assets: path.resolve(__dirname, 'src/assets/'),
+    },
   }
 };

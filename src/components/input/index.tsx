@@ -1,17 +1,17 @@
-import React, { FC } from 'react';
-
+import React, { ChangeEvent, FC } from 'react';
+import './index.css';
 interface InputProps {
   error?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Input: FC<React.HTMLProps<HTMLInputElement> & InputProps> = (
-  props
-) => {
-  console.log('input error', { error: props.error });
+export const Input: FC<
+  InputProps & Partial<React.HTMLProps<HTMLInputElement>>
+> = (props) => {
   return (
-    <div className=''>
+    <div className='w-full bg-transparent'>
       <input
-        className={`appearance-none rounded-xl bg-[#EFEEEA] h-10 w-full py-2 px-3 text-[#000] text-xs leading-tight focus:outline-none focus:shadow-outline ${
+        className={`appearance-none rounded-xl bg-transparent h-10 w-full mx-4 text-[#fff] leading-tight focus:outline-none focus:shadow-outline ${
           props.error ? 'border-red-500 border' : ''
         }`}
         id='name'

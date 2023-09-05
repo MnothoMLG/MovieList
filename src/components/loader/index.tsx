@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import Modal from 'react-modal';
 import { ColorRing } from 'react-loader-spinner';
 import { useLoading } from '../../hooks';
-import { SIGN_UP_LOADING_KEY } from '../../store/auth/actions';
+import { FETCH_ALL_LOADING_KEY } from '../../store/data/actions';
 
 export const LoadingOverlay: FC<React.HTMLProps<HTMLParagraphElement>> = () => {
-  const loading = useLoading(SIGN_UP_LOADING_KEY);
+  const loading = useLoading(FETCH_ALL_LOADING_KEY);
 
   return (
     <Modal isOpen={loading} style={customStyles} contentLabel='Example Modal'>

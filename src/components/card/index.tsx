@@ -1,29 +1,23 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import './card.css';
-
-import { ICard, completionCards } from '../../constants/';
+import { Movie } from '@store/data/types';
+import { getImgURL } from '../../util';
 interface CardProps {
-  card: ICard;
-  flipCard: (cardId: number) => void;
-  disabled?: boolean;
-  gameWon?: boolean;
+  movie: Movie;
 }
 
-export const Card: FC<CardProps> = ({ card, flipCard, gameWon, disabled }) => {
-  const Icon = gameWon ? completionCards[card.card_id] : card.backImg;
-
+export const Card: FC<CardProps> = ({ movie }) => {
   return (
-    <div
-      className={`card rounded-xl ${
-        card.flipped || gameWon ? 'no-flip' : 'flip'
-      } w-full bg-cover bg-no-repeat bg-center w-full w-[68px] lg:w-full lg:h-[240px] h-[112px] bg-[transparent]`}
-      onClick={() => !disabled && flipCard(card.card_id)}
-    >
-      <div
-        className={`card-front bg-no-repeat bg-cover bg-center rounded-xl`}
-      ></div>
-      <div className='card-back rounded-xl '>
-        <Icon />
+    <div className='px-3 py-2 w-1/3 aspect-[2/3] my-4'>
+      <div className='h-full flex flex-col items-center text-center'>
+        <img
+          alt='team'
+          className=' aspect-[2/3] w-full object-cover object-center mb-4'
+          src={getImgURL(movie['poster-image'])}
+        />
+        <div className='w-full'>
+          <p className='title-font text-sm text-white'>{movie.name}</p>
+        </div>
       </div>
     </div>
   );

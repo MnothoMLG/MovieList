@@ -11,7 +11,7 @@ import sagas from './root.saga';
 const config = {
   key: 'root',
   storage,
-  whitelist: ['authReducer'],
+  whitelist: ['dataReducer'],
   debug: true,
 };
 

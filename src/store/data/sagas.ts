@@ -1,4 +1,4 @@
-import { takeLatest, put, call, delay } from 'redux-saga/effects';
+import { takeLatest, put, call, delay, select } from 'redux-saga/effects';
 import { AxiosResponse } from 'axios';
 import {
   fetchAllDataSuccess,
@@ -8,23 +8,19 @@ import {
 import { client } from 'src/api/api';
 import { apiPaths } from 'src/config/api';
 import { DataResult } from './types';
+import { getCurrentPage } from './selectors';
 
 export function* fetchAll() {
   try {
-    const dataFetchResponse: AxiosResponse<DataResult> = yield call(() =>
-      client.get(apiPaths.DATA)
-    ); //for loader
+    const currentPage: string = yield select(getCurrentPage);
 
-    yield delay(2000);
-    const {
-      page: {
-        'content-items': { content },
-        title,
-        ...rest
-      },
-    } = dataFetchResponse.data;
-    const page = rest['page-num-requested'];
-    yield put(fetchAllDataSuccess({ data: dataFetchResponse.data }));
+    console.log({ currentPage });
+    const dataFetchResponse: AxiosResponse<DataResult> = yield call(() =>
+      client.get(apiPaths.DATA.replace('{0}', currentPage ?? '1'))
+    );
+
+    yield delay(2000); //for loader
+    yield put(fetchAllDataSuccess({ ...dataFetchResponse }));
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

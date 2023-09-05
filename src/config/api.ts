@@ -1,4 +1,4 @@
 export const apiPaths = {
-  DATA: '/data/page1.json',
+  DATA: '/data/page{0}.json',
   IMAGES: '/images/',
 };

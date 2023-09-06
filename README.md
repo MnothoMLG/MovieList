@@ -6,6 +6,7 @@ Notable pending improvemnts :
 
 - Unit testing
 - Webpack path alias/resolution
+- Animations (aos) config
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

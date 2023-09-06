@@ -2,6 +2,8 @@ import { getImgURL } from 'src/util/index';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { images } from 'src/constants/strings';
 import { Input } from 'src/components/input';
+import { useSelector } from 'react-redux';
+import { getPageTitle } from 'src/store/data/selectors';
 
 interface Props {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -10,6 +12,7 @@ interface Props {
 export const Header: FC<Props> = ({ onChange }) => {
   const [searching, setSearching] = useState(false);
   const [value, setValue] = useState<string>('');
+  const title = useSelector(getPageTitle);
   return (
     <div className='h-20 w-full absolute sticky top-0 relative z-30 w-full '>
       <div
@@ -20,7 +23,7 @@ export const Header: FC<Props> = ({ onChange }) => {
       >
         <img className='w-8 h-8' src={getImgURL(images.BACK)} />
         {!searching && !value ? (
-          <div className='text-white w-full mx-4'>Romantic Comedy</div>
+          <div className='text-white w-full mx-4'>{title}</div>
         ) : (
           <Input
             onChange={(e: ChangeEvent<HTMLInputElement>) => {

@@ -1,4 +1,4 @@
-export function loadingReducer(state = {}, action: any) {
+export function loadingReducer(state = {}, action: { type: string }) {
   const { type } = action;
 
   const matches = /(.*)_API_(REQUEST|SUCCESS|ERROR)/.exec(type);
@@ -8,8 +8,6 @@ export function loadingReducer(state = {}, action: any) {
   }
 
   const [, requestName, requestState] = matches;
-
-  console.log({ requestName, requestState });
   return {
     ...state,
     [requestName]: requestState === 'REQUEST',

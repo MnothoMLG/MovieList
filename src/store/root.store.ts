@@ -11,7 +11,6 @@ import sagas from './root.saga';
 const config = {
   key: 'root',
   storage,
-  whitelist: ['dataReducer'],
   debug: true,
 };
 
@@ -19,7 +18,7 @@ const persistedReducers = persistReducer(config, reducers);
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
-  reducer: persistedReducers,
+  reducer: reducers,
   devTools: true,
   middleware: [sagaMiddleware],
 });

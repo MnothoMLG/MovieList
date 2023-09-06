@@ -19,6 +19,7 @@ export function* fetchAll() {
       client.get(apiPaths.DATA.replace('{0}', currentPage ?? '1'))
     );
 
+    console.log({ dataFetchResponse });
     yield delay(2000); //for loader
     yield put(fetchAllDataSuccess({ ...dataFetchResponse }));
 

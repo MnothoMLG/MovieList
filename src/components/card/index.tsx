@@ -1,14 +1,18 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import './card.css';
 import { Movie } from '@store/data/types';
 import { getImgURL } from '../../util';
 interface CardProps {
   movie: Movie;
+  index: number;
 }
 
-export const Card: FC<CardProps> = ({ movie }) => {
+export const Card: FC<CardProps> = ({ movie, index }) => {
   return (
-    <div className='px-3 py-2 w-1/3 aspect-[2/3] my-4'>
+    <div
+      data-aos={index % 2 ? 'flip-left' : 'flip-right'}
+      className='px-3 py-2 w-1/3 aspect-[2/3] my-4'
+    >
       <div className='h-full flex flex-col items-center text-center'>
         <img
           alt='team'
@@ -16,7 +20,7 @@ export const Card: FC<CardProps> = ({ movie }) => {
           src={getImgURL(movie['poster-image'])}
         />
         <div className='w-full'>
-          <p className='title-font text-sm text-white'>{movie.name}</p>
+          <p className='title-font text-[14px] text-white'>{movie.name}</p>
         </div>
       </div>
     </div>

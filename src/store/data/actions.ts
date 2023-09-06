@@ -1,12 +1,12 @@
 import { createAction } from '@reduxjs/toolkit';
-import { DataResult, Movie } from './types';
+import { DataResult } from './types';
 
 export const FETCH_ALL_LOADING_KEY = '@DATA/FETCH_ALL_DATA';
 export const fetchAllDataRequest = createAction<{ page?: number }>(
   '@DATA/FETCH_ALL_DATA_API_REQUEST'
 );
 
-export const fetchAllDataError = createAction<{ error: any }>(
+export const fetchAllDataError = createAction<{ error: unknown }>(
   '@DATA/FETCH_ALL_DATA_API_ERROR'
 );
 

@@ -1,6 +1,11 @@
-# Flip Card React App
+# Movie List React App
 
 by Mnotho Gumede
+
+Notable pending improvemnts :
+
+- Unit testing
+- Webpack path alias/resolution
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
